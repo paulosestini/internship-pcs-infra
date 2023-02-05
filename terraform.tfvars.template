@@ -1,0 +1,14 @@
+# Google Cloud
+project          = "PLACEHOLDER"
+credentials_file = "PLACEHOLDER"
+
+# Services
+template_service_image        = "PLACEHOLDER"
+template_service_account_name = "PLACEHOLDER"
+
+# Triggers
+repo_owner            = "PLACEHOLDER"
+template_service_repo = "PLACEHOLDER"
+
+# Database
+db_root_password = "PLACEHOLDER"
