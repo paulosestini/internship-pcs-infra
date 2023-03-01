@@ -1,12 +1,12 @@
-resource "google_cloud_run_service" "template_internship_service" {
-  name     = "template-internship-service"
+resource "google_cloud_run_service" "curricula_internship_service" {
+  name     = "curricula-internship-service"
   location = var.region
 
   template {
     spec {
-      service_account_name = var.template_service_account_name
+      service_account_name = var.curricula_service_account_name
       containers {
-        image = var.template_service_image
+        image = var.curricula_service_image
         env {
           name  = "ENABLE_GRAPHIQL"
           value = true
@@ -16,7 +16,7 @@ resource "google_cloud_run_service" "template_internship_service" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = "TEMPLATE_DB_PASSWORD"
+              name = "CURRICULA_DB_PASSWORD"
             }
           }
         }
@@ -25,7 +25,7 @@ resource "google_cloud_run_service" "template_internship_service" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = "TEMPLATE_DB_USER"
+              name = "CURRICULA_DB_USER"
             }
           }
         }
@@ -34,7 +34,7 @@ resource "google_cloud_run_service" "template_internship_service" {
           value_from {
             secret_key_ref {
               key  = "latest"
-              name = "TEMPLATE_DB_URL"
+              name = "CURRICULA_DB_URL"
             }
           }
         }
@@ -53,10 +53,10 @@ resource "google_cloud_run_service" "template_internship_service" {
   }
 }
 
-resource "google_cloud_run_service_iam_policy" "template_noauth" {
-  location = google_cloud_run_service.template_internship_service.location
-  project  = google_cloud_run_service.template_internship_service.project
-  service  = google_cloud_run_service.template_internship_service.name
+resource "google_cloud_run_service_iam_policy" "curricula_noauth" {
+  location = google_cloud_run_service.curricula_internship_service.location
+  project  = google_cloud_run_service.curricula_internship_service.project
+  service  = google_cloud_run_service.curricula_internship_service.name
 
   policy_data = data.google_iam_policy.noauth.policy_data
 }
