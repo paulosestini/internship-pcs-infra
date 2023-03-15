@@ -9,30 +9,21 @@ variable "zone" {
 }
 
 # Services
-variable "template_service_image" {
-  default = "gcr.io/cloudrun/hello"
-}
-variable "template_service_account_name" {}
-
-variable "positions_service_image" {
-  default = "gcr.io/cloudrun/hello"
-}
 variable "positions_service_account_name" {}
 
-variable "curricula_service_image" {
-  default = "gcr.io/cloudrun/hello"
-}
 variable "curricula_service_account_name" {}
 
-# Triggers
-variable "template_service_repo_owner" {}
-variable "template_service_repo" {}
+variable "auth_service_account_name" {}
 
+# Triggers
 variable "positions_service_repo_owner" {}
 variable "positions_service_repo" {}
 
 variable "curricula_service_repo_owner" {}
 variable "curricula_service_repo" {}
+
+variable "auth_service_repo_owner" {}
+variable "auth_service_repo" {}
 
 # Database
 variable "db_root_password" {}

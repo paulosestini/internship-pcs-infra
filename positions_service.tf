@@ -6,7 +6,7 @@ resource "google_cloud_run_service" "positions_internship_service" {
     spec {
       service_account_name = var.positions_service_account_name
       containers {
-        image = var.positions_service_image
+        image = "gcr.io/${var.project}/${var.positions_service_repo}:master"
         env {
           name  = "ENABLE_GRAPHIQL"
           value = true
@@ -38,6 +38,15 @@ resource "google_cloud_run_service" "positions_internship_service" {
             }
           }
         }
+        env {
+          name = "AUTH_CRYPTO_SECRET"
+          value_from {
+            secret_key_ref {
+              key  = "latest"
+              name = "AUTH_CRYPTO_SECRET"
+            }
+          }
+        }
       }
     }
     metadata {
@@ -59,4 +68,8 @@ resource "google_cloud_run_service_iam_policy" "positions_noauth" {
   service  = google_cloud_run_service.positions_internship_service.name
 
   policy_data = data.google_iam_policy.noauth.policy_data
+
+  depends_on = [
+      google_cloud_run_service.positions_internship_service
+  ]
 }

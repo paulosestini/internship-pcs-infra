@@ -17,11 +17,6 @@ resource "google_sql_database_instance" "internship_database" {
   }
 }
 
-resource "google_sql_database" "template_db" {
-  name     = "template"
-  instance = google_sql_database_instance.internship_database.name
-}
-
 resource "google_sql_database" "positions_db" {
   name     = "positions"
   instance = google_sql_database_instance.internship_database.name
@@ -29,5 +24,10 @@ resource "google_sql_database" "positions_db" {
 
 resource "google_sql_database" "curricula_db" {
   name     = "curricula"
+  instance = google_sql_database_instance.internship_database.name
+}
+
+resource "google_sql_database" "auth_db" {
+  name     = "auth"
   instance = google_sql_database_instance.internship_database.name
 }
