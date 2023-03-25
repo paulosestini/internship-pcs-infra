@@ -60,6 +60,21 @@ resource "google_cloud_run_service" "curricula_internship_service" {
     percent         = 100
     latest_revision = true
   }
+
+  timeouts {
+    update = "5m"
+    delete = "5m"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      template.0.metadata.0.annotations["client.knative.dev/user-image"],
+      template.0.metadata.0.annotations["run.googleapis.com/client-name"],
+      template.0.metadata.0.annotations["run.googleapis.com/client-version"],
+      traffic["latest_revision"],
+      traffic["revision_name"]
+    ]
+  }
 }
 
 resource "google_cloud_run_service_iam_policy" "curricula_noauth" {

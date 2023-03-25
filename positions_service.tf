@@ -60,6 +60,21 @@ resource "google_cloud_run_service" "positions_internship_service" {
     percent         = 100
     latest_revision = true
   }
+
+  timeouts {
+    update = "5m"
+    delete = "5m"
+  }
+
+  lifecycle {
+    ignore_changes = [
+      template.0.metadata.0.annotations["client.knative.dev/user-image"],
+      template.0.metadata.0.annotations["run.googleapis.com/client-name"],
+      template.0.metadata.0.annotations["run.googleapis.com/client-version"],
+      traffic["latest_revision"],
+      traffic["revision_name"]
+    ]
+  }
 }
 
 resource "google_cloud_run_service_iam_policy" "positions_noauth" {
@@ -70,6 +85,6 @@ resource "google_cloud_run_service_iam_policy" "positions_noauth" {
   policy_data = data.google_iam_policy.noauth.policy_data
 
   depends_on = [
-      google_cloud_run_service.positions_internship_service
+    google_cloud_run_service.positions_internship_service
   ]
 }
