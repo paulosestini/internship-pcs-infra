@@ -29,3 +29,13 @@ resource "google_pubsub_topic" "curriculum_authorization" {
     encoding = "JSON"
   }
 }
+
+resource "google_pubsub_subscription" "user_creation_sub" {
+  name = "user-creation-sub"
+  topic = google_pubsub_topic.user_creation.name
+}
+
+resource "google_pubsub_subscription" "curriculum_authorization_sub" {
+  name = "curriculum-authorization-sub"
+  topic = google_pubsub_topic.curriculum_authorization.name
+}
