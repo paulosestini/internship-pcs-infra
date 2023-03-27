@@ -83,6 +83,15 @@ resource "google_cloud_run_service" "auth_internship_service" {
             }
           }
         }
+        env {
+          name = "CORS_FRONT_URL"
+          value_from {
+            secret_key_ref {
+              key  = "latest"
+              name = "CORS_FRONT_URL"
+            }
+          }
+        }
       }
     }
     metadata {
